@@ -178,10 +178,17 @@ const aboutImage = projects.find((p) => p.slug === 'cocina-julian')?.images[0];
   .hero__scrim {
     position: absolute; inset: 0;
     background:
-      linear-gradient(to top, rgba(22,33,30,0.78) 0%, rgba(22,33,30,0.25) 42%, rgba(22,33,30,0.15) 100%);
+      linear-gradient(to top, rgba(22,33,30,0.86) 0%, rgba(22,33,30,0.5) 45%, rgba(22,33,30,0.38) 100%);
   }
-  .hero__content { padding-bottom: clamp(3.5rem, 2rem + 6vw, 7rem); max-width: 880px; }
-  .hero__eyebrow { color: var(--color-sand); }
+  .hero__content {
+    padding-bottom: clamp(3.5rem, 2rem + 6vw, 7rem);
+    max-width: 880px;
+    text-shadow: 0 1px 28px rgba(22, 33, 30, 0.55), 0 1px 4px rgba(22, 33, 30, 0.4);
+  }
+  .hero__eyebrow {
+    color: var(--color-cream);
+    text-shadow: 0 1px 16px rgba(22, 33, 30, 0.7);
+  }
   .hero__title {
     font-size: var(--fs-hero);
     color: var(--color-cream);
@@ -191,9 +198,11 @@ const aboutImage = projects.find((p) => p.slug === 'cocina-julian')?.images[0];
     font-size: var(--fs-lead);
     font-weight: 300;
     max-width: 46ch;
-    color: rgba(243, 237, 225, 0.9);
+    color: rgba(243, 237, 225, 0.95);
   }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.25rem; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.25rem; text-shadow: none; }
+  .hero__actions .btn--outline { color: var(--color-cream); border-color: rgba(243, 237, 225, 0.7); }
+  .hero__actions .btn--outline:hover { background: var(--color-cream); color: var(--color-forest); border-color: var(--color-cream); }
   .hero__scroll {
     position: absolute;
     left: 50%; bottom: 1.5rem;
