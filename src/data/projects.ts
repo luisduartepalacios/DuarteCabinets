@@ -31,8 +31,8 @@ function imagesFor(slug: string): ImageMetadata[] {
 
 const meta: Omit<Project, 'images'>[] = [
   {
-    slug: 'cocina-kate',
-    title: 'Cocina Kate',
+    slug: 'white-oak-kitchen',
+    title: 'The White Oak Kitchen',
     type: 'Residential',
     category: 'Kitchen',
     location: 'Tijuana, MX',
@@ -41,7 +41,7 @@ const meta: Omit<Project, 'images'>[] = [
     intro:
       'A bright, contemporary kitchen built around white oak millwork, softly arched display alcoves, and a sculptural terrazzo island.',
     body: [
-      'Cocina Kate began with a simple brief: a kitchen that feels open and sunlit, yet anchored by warm, tactile materials. We answered with full-height white oak cabinetry framing a pair of arched alcoves that display ceramics and art rather than hiding them away.',
+      'The White Oak Kitchen began with a simple brief: a kitchen that feels open and sunlit, yet anchored by warm, tactile materials. We answered with full-height white oak cabinetry framing a pair of arched alcoves that display ceramics and art rather than hiding them away.',
       'The terrazzo island is the heart of the room, a single, generous surface for cooking, gathering, and the everyday. Cane-backed stools and a round oak dining table keep the mood relaxed and unmistakably livable.',
     ],
     details: [
