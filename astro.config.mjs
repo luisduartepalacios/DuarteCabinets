@@ -3,8 +3,9 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Update to the production domain once it's live (used for sitemap + canonical URLs).
-  site: 'https://duartecabinets.com',
+  // Production domain (used for sitemap + canonical URLs). www is primary;
+  // the bare apex redirects to www at the DNS level.
+  site: 'https://www.duartecabinets.com',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   build: {
