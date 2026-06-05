@@ -74,7 +74,7 @@ export const services = [
 
 export const aboutCopy = {
   intro:
-    'Duarte Cabinets & Design is the studio of Itzel Duarte — an integral designer who believes a well-made space should feel as good as it looks.',
+    'Duarte Cabinets & Design is the studio of Itzel Duarte, an integral designer who believes a well-made space should feel as good as it looks.',
   mission:
     'To transform spaces through integral design and signature cabinetry — delivering personalized, high-quality pieces at a fair price, with a professional and personal experience that turns every investment into a space that is functional, dignified, and full of life.',
   vision:
