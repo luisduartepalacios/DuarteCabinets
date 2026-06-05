@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site, services } from '../data/site';
 
-const formAction = `https://formspree.io/f/${site.formspreeId}`;
+// Posts to our Cloudflare Pages Function, which emails the studio and
+// auto-confirms to the sender via Resend. See functions/api/contact.js.
+const formAction = '/api/contact';
 ---
 
 <BaseLayout
@@ -92,12 +94,6 @@ const formAction = `https://formspree.io/f/${site.formspreeId}`;
           <p class="contact-form__status" data-status hidden role="status"></p>
         </form>
 
-        {site.formspreeId === 'XXXXXXXX' && (
-          <p class="contact-form__note">
-            ⚠︎ Set up a free form at <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a>
-            and replace <code>formspreeId</code> in <code>src/data/site.ts</code> to receive submissions.
-          </p>
-        )}
       </div>
     </div>
   </section>
@@ -195,10 +191,9 @@ const formAction = `https://formspree.io/f/${site.formspreeId}`;
         if (status) { status.dataset.state = 'ok'; status.textContent = 'Thank you, your inquiry is on its way. We’ll be in touch soon.'; }
         if (submit) { submit.disabled = false; submit.textContent = 'Sent ✓'; }
       } else {
-        // Surface Formspree's validation message when available.
+        // Surface the function's error message when available.
         const data = await res.json().catch(() => null);
-        const msg = data?.errors?.map((err: { message: string }) => err.message).join(', ');
-        throw new Error(msg || 'Bad response');
+        throw new Error(data?.error || 'Bad response');
       }
     } catch (err) {
       if (status) {
