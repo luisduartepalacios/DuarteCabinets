@@ -146,7 +146,7 @@ export async function onRequestPost({ request, env }) {
   const d = {
     name: esc(name),
     email: esc(email),
-    phone: esc(phone || '—'),
+    phone: esc(phone || 'Not provided'),
     service: esc(service),
     message: esc(message).replace(/\n/g, '<br>'),
   };
