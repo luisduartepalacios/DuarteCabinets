@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers — static-assets deployment for the Astro build output.
+  // No Worker script: the `dist/` folder is served directly as static assets.
+  "name": "duarte-cabinets",
+  "compatibility_date": "2024-11-01",
+  "assets": {
+    "directory": "./dist",
+    // Serve the custom 404.html for unmatched routes.
+    "not_found_handling": "404-page"
+  }
+}
