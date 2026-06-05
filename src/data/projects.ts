@@ -42,7 +42,7 @@ const meta: Omit<Project, 'images'>[] = [
       'A bright, contemporary kitchen built around white oak millwork, softly arched display alcoves, and a sculptural terrazzo island.',
     body: [
       'Cocina Kate began with a simple brief: a kitchen that feels open and sunlit, yet anchored by warm, tactile materials. We answered with full-height white oak cabinetry framing a pair of arched alcoves that display ceramics and art rather than hiding them away.',
-      'The terrazzo island is the heart of the room — a single, generous surface for cooking, gathering, and the everyday. Cane-backed stools and a round oak dining table keep the mood relaxed and unmistakably livable.',
+      'The terrazzo island is the heart of the room, a single, generous surface for cooking, gathering, and the everyday. Cane-backed stools and a round oak dining table keep the mood relaxed and unmistakably livable.',
     ],
     details: [
       { label: 'Scope', value: 'Full-service design & cabinetry' },
@@ -60,10 +60,10 @@ const meta: Omit<Project, 'images'>[] = [
     year: '2024',
     blurb: 'A neighborhood café in warm wood, arched niches, and a daylit skylight.',
     intro:
-      'A neighborhood coffee house designed end to end — warm wood joinery, arched seating niches, and a central skylight that tracks the day.',
+      'A neighborhood coffee house designed end to end, warm wood joinery, arched seating niches, and a central skylight that tracks the day.',
     body: [
       'For Eph we designed a café that earns its regulars. A long timber service counter leads the eye through the room, while arched banquette niches carve out intimate corners within an open plan.',
-      'A central skylight floods the space with changing daylight, and custom display millwork keeps merchandise and pastries beautifully in view. Every fixture — from the counter to the shelving — was drawn and built for this room.',
+      'A central skylight floods the space with changing daylight, and custom display millwork keeps merchandise and pastries beautifully in view. Every fixture, from the counter to the shelving, was drawn and built for this room.',
     ],
     details: [
       { label: 'Scope', value: 'Full commercial fit-out' },
@@ -102,7 +102,7 @@ const meta: Omit<Project, 'images'>[] = [
     year: '2024',
     blurb: 'A boutique walk-in dressing room with glass-front wardrobes and a vanity island.',
     intro:
-      'A boutique-style walk-in dressing room — glass-front wardrobes, a central vanity island, and jewel-box detailing throughout.',
+      'A boutique-style walk-in dressing room, glass-front wardrobes, a central vanity island, and jewel-box detailing throughout.',
     body: [
       'We approached this dressing room like a small luxury boutique. Bronze-framed glass wardrobes line the walls, putting the wardrobe on display while keeping everything dust-free and organized.',
       'A central vanity island provides a place to get ready, with specialized inserts for jewelry, watches, ties, and accessories. Integrated lighting turns the everyday routine into something a little more ceremonial.',
@@ -147,7 +147,7 @@ const meta: Omit<Project, 'images'>[] = [
       'A crisp contemporary kitchen that balances bright cabinetry with marble surfaces and walnut accents for warmth.',
     body: [
       'This kitchen pursues a light, modern feeling without going cold. Bright cabinetry and marble counters keep the room airy, while walnut accents and a waterfall island add depth and warmth.',
-      'Clean, handleless fronts and carefully planned storage make the space as functional as it is calm — a flexible backdrop for everyday cooking and entertaining alike.',
+      'Clean, handleless fronts and carefully planned storage make the space as functional as it is calm, a flexible backdrop for everyday cooking and entertaining alike.',
     ],
     details: [
       { label: 'Scope', value: 'Full-service design & cabinetry' },

@@ -181,7 +181,7 @@ const formAction = `https://formspree.io/f/${site.formspreeId}`;
         });
         if (res.ok) {
           form.reset();
-          if (status) { status.dataset.state = 'ok'; status.textContent = 'Thank you — your inquiry is on its way. We’ll be in touch soon.'; }
+          if (status) { status.dataset.state = 'ok'; status.textContent = 'Thank you, your inquiry is on its way. We’ll be in touch soon.'; }
           if (submit) { submit.disabled = false; submit.textContent = 'Sent ✓'; }
         } else {
           throw new Error('Bad response');

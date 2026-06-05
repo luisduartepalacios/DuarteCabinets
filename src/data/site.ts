@@ -30,7 +30,7 @@ export const services = [
     key: 'full-service',
     name: 'Full-Service Design',
     summary:
-      'End-to-end design and custom millwork — from first concept to the final installed cabinet.',
+      'End-to-end design and custom millwork, from first concept to the final installed cabinet.',
     description:
       'A complete, hands-on partnership. We measure your space, develop the floor plan and 3D renderings, specify every material and finish, and fabricate the custom cabinetry in our own workshop. You receive one accountable team from concept through installation.',
     includes: [
@@ -45,7 +45,7 @@ export const services = [
     key: 'e-design',
     name: 'E-Design',
     summary:
-      'A designer-led plan delivered remotely — ideal for clients outside our travel radius.',
+      'A designer-led plan delivered remotely, ideal for clients outside our travel radius.',
     description:
       'Work with us from anywhere. Based on your measurements and photos, we deliver a complete design package: layout, 3D renderings, a finish and materials schedule, and a sourcing list you (or your contractor) can build from. The Duarte aesthetic, on your timeline and budget.',
     includes: [
@@ -60,7 +60,7 @@ export const services = [
     key: 'consultation',
     name: 'Consultation',
     summary:
-      'Focused, expert guidance when you need direction — not a full engagement.',
+      'Focused, expert guidance when you need direction, not a full engagement.',
     description:
       'A single working session to unlock a stuck project: validate a layout, refine a material palette, or get a professional second opinion before you commit. Clear, actionable direction in one conversation.',
     includes: [
@@ -76,13 +76,13 @@ export const aboutCopy = {
   intro:
     'Duarte Cabinets & Design is the studio of Itzel Duarte, an integral designer who believes a well-made space should feel as good as it looks.',
   mission:
-    'To transform spaces through integral design and signature cabinetry — delivering personalized, high-quality pieces at a fair price, with a professional and personal experience that turns every investment into a space that is functional, dignified, and full of life.',
+    'To transform spaces through integral design and signature cabinetry, delivering personalized, high-quality pieces at a fair price, with a professional and personal experience that turns every investment into a space that is functional, dignified, and full of life.',
   vision:
     'To become the binational reference for made-to-measure design, bringing our passion for detail to the leading cities of Mexico and the United States.',
   values: [
     {
       title: 'Made to measure',
-      body: 'Every piece is designed and built for one space and one client — never off the shelf. Versatile in materials, color, and texture.',
+      body: 'Every piece is designed and built for one space and one client, never off the shelf. Versatile in materials, color, and texture.',
     },
     {
       title: 'Honest craft',
@@ -90,7 +90,7 @@ export const aboutCopy = {
     },
     {
       title: 'Warm & professional',
-      body: 'A close, personal process from first sketch to final install — friendly, clear, and dependable at every step.',
+      body: 'A close, personal process from first sketch to final install, friendly, clear, and dependable at every step.',
     },
   ],
 };
