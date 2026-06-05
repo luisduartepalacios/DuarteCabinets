@@ -156,7 +156,7 @@ export async function onRequestPost({ request, env }) {
     from: FROM_NOTIFY,
     to: [STUDIO_EMAIL],
     reply_to: email,
-    subject: `New project inquiry — ${name}`,
+    subject: `New project inquiry, ${name}`,
     html: leadEmail(d),
   });
 
@@ -173,7 +173,7 @@ export async function onRequestPost({ request, env }) {
       from: FROM_STUDIO,
       to: [email],
       reply_to: STUDIO_EMAIL,
-      subject: `We received your inquiry — ${STUDIO_NAME}`,
+      subject: `We received your inquiry, ${STUDIO_NAME}`,
       html: confirmEmail(d),
     });
   } catch {
