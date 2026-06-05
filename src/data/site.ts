@@ -13,8 +13,8 @@ export const site = {
   instagram: 'duarte.cabinets',
   instagramUrl: 'https://www.instagram.com/duarte.cabinets',
   locationLine: 'Tijuana, MX · Serving Southern California & the U.S.',
-  // Formspree endpoint — replace XXXXXXXX with the real form id from formspree.io
-  formspreeId: 'XXXXXXXX',
+  // Formspree form id (form posts to https://formspree.io/f/<id>)
+  formspreeId: 'xrevebag',
 };
 
 export const nav = [

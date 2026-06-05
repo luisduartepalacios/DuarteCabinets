@@ -168,29 +168,37 @@ const formAction = `https://formspree.io/f/${site.formspreeId}`;
   const status = document.querySelector<HTMLElement>('[data-status]');
   const submit = document.querySelector<HTMLButtonElement>('[data-submit]');
 
+  const defaultLabel = submit?.textContent ?? 'Send inquiry';
+
   form?.addEventListener('submit', async (e) => {
-    if (!form.action.includes('/f/XXXXXXXX')) {
-      e.preventDefault();
-      if (status) { status.hidden = false; status.removeAttribute('data-state'); status.textContent = 'Sending…'; }
-      if (submit) submit.disabled = true;
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        });
-        if (res.ok) {
-          form.reset();
-          if (status) { status.dataset.state = 'ok'; status.textContent = 'Thank you, your inquiry is on its way. We’ll be in touch soon.'; }
-          if (submit) { submit.disabled = false; submit.textContent = 'Sent ✓'; }
-        } else {
-          throw new Error('Bad response');
-        }
-      } catch {
-        if (status) { status.dataset.state = 'error'; status.textContent = 'Something went wrong. Please email us directly and we’ll sort it out.'; }
-        if (submit) submit.disabled = false;
+    e.preventDefault();
+    if (status) { status.hidden = false; status.removeAttribute('data-state'); status.textContent = 'Sending…'; }
+    if (submit) { submit.disabled = true; submit.textContent = 'Sending…'; }
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.reset();
+        if (status) { status.dataset.state = 'ok'; status.textContent = 'Thank you, your inquiry is on its way. We’ll be in touch soon.'; }
+        if (submit) { submit.disabled = false; submit.textContent = 'Sent ✓'; }
+      } else {
+        // Surface Formspree's validation message when available.
+        const data = await res.json().catch(() => null);
+        const msg = data?.errors?.map((err: { message: string }) => err.message).join(', ');
+        throw new Error(msg || 'Bad response');
       }
+    } catch (err) {
+      if (status) {
+        status.dataset.state = 'error';
+        status.textContent =
+          (err instanceof Error && err.message && err.message !== 'Bad response')
+            ? err.message
+            : 'Something went wrong. Please email us directly and we’ll sort it out.';
+      }
+      if (submit) { submit.disabled = false; submit.textContent = defaultLabel; }
     }
-    // else: form not configured yet → let the native submit happen.
   });
 </script>
