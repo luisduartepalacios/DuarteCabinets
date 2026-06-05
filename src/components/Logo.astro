@@ -1,0 +1,82 @@
+---
+/**
+ * Duarte Cabinets & Design — logo.
+ * Imagotype: a six-point asterisk inspired by drawer pulls / cabinet handles.
+ * `variant` controls layout, `tone` controls color (inherits `currentColor` by default).
+ */
+interface Props {
+  variant?: 'full' | 'stacked' | 'mark';
+  class?: string;
+  markColor?: string; // overrides the asterisk color; defaults to brand orange
+}
+const { variant = 'full', class: className = '', markColor } = Astro.props;
+
+// One arm (kite) pointing up from center (32,32); rotated six times to form the asterisk.
+const arm = '32,3 35.4,29 32,39 28.6,29';
+const angles = [0, 60, 120, 180, 240, 300];
+---
+
+<span class={`logo logo--${variant} ${className}`} aria-label="Duarte Cabinets & Design">
+  <svg class="logo__mark" viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+    <g style={markColor ? `fill:${markColor}` : undefined}>
+      {angles.map((a) => <polygon points={arm} transform={`rotate(${a} 32 32)`} />)}
+    </g>
+  </svg>
+  {variant !== 'mark' && (
+    <span class="logo__words">
+      <span class="logo__name">Duarte</span>
+      <span class="logo__tag">cabinets &amp; design</span>
+    </span>
+  )}
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    color: inherit;
+    line-height: 1;
+  }
+  .logo__mark {
+    width: 1.85em;
+    height: 1.85em;
+    flex: none;
+    fill: var(--color-rust, #dc5026);
+  }
+  .logo__words {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12em;
+  }
+  .logo__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.5em;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: currentColor;
+  }
+  .logo__tag {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.62em;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    color: currentColor;
+  }
+  /* Stacked: mark centered above the words */
+  .logo--stacked {
+    flex-direction: column;
+    gap: 0.5em;
+    text-align: center;
+  }
+  .logo--stacked .logo__mark {
+    width: 2.6em;
+    height: 2.6em;
+  }
+  .logo--stacked .logo__words {
+    align-items: center;
+  }
+</style>

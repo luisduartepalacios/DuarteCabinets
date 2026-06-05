@@ -1,0 +1,214 @@
+---
+import Logo from './Logo.astro';
+import { nav } from '../data/site';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+---
+
+<header class="site-header" data-header>
+  <div class="site-header__inner container">
+    <a href="/" class="site-header__brand" aria-label="Duarte Cabinets & Design — home">
+      <Logo variant="full" />
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul role="list" class="site-nav__list">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['site-nav__link', { 'is-active': isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href="/contact" class="site-header__cta">Start a project</a>
+
+    <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mobile-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-nav" id="mobile-nav" data-mobile-nav hidden>
+    <nav aria-label="Mobile">
+      <ul role="list" class="mobile-nav__list">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['mobile-nav__link', { 'is-active': isActive(item.href) }]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/contact" class="btn btn--primary mobile-nav__cta">Start a project</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--color-cream) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+  }
+  .site-header[data-scrolled] {
+    border-bottom-color: var(--hairline);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 84px;
+  }
+  .site-header__brand {
+    font-size: 0.92rem;
+    color: var(--color-forest);
+    flex: none;
+  }
+
+  .site-nav {
+    margin-left: auto;
+  }
+  .site-nav__list {
+    display: flex;
+    gap: clamp(1.2rem, 2.2vw, 2.6rem);
+    margin: 0;
+  }
+  .site-nav__link {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    padding-block: 0.4rem;
+    position: relative;
+  }
+  .site-nav__link::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-rust);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease);
+  }
+  .site-nav__link:hover::after,
+  .site-nav__link.is-active::after { transform: scaleX(1); }
+  .site-nav__link.is-active { color: var(--color-forest); }
+
+  .site-header__cta {
+    flex: none;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.85em 1.5em;
+    border: 1px solid var(--color-forest);
+    border-radius: var(--radius);
+    color: var(--color-forest);
+    transition: background 0.4s var(--ease), color 0.4s var(--ease);
+  }
+  .site-header__cta:hover { background: var(--color-forest); color: var(--color-cream); }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    padding: 0.5rem;
+    margin-right: -0.5rem;
+  }
+  .nav-toggle__bars { display: inline-block; width: 26px; }
+  .nav-toggle__bars span {
+    display: block;
+    height: 1.5px;
+    background: var(--color-forest);
+    transition: transform 0.35s var(--ease), opacity 0.2s ease;
+  }
+  .nav-toggle__bars span + span { margin-top: 7px; }
+  [aria-expanded='true'] .nav-toggle__bars span:first-child { transform: translateY(4.25px) rotate(45deg); }
+  [aria-expanded='true'] .nav-toggle__bars span:last-child { transform: translateY(-4.25px) rotate(-45deg); }
+
+  .mobile-nav {
+    display: none;
+    border-top: 1px solid var(--hairline);
+    background: var(--color-cream);
+    padding: 1.5rem var(--gutter) 2.5rem;
+  }
+  .mobile-nav[data-open] { display: block; animation: drawer 0.4s var(--ease); }
+  @keyframes drawer { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  .mobile-nav__list { margin: 0 0 1.5rem; }
+  .mobile-nav__link {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 500;
+    color: var(--color-forest);
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .mobile-nav__link.is-active { color: var(--color-rust); }
+  .mobile-nav__cta { width: 100%; justify-content: center; margin-top: 1.25rem; }
+
+  /* ---- Responsive: distinct mobile layout ---- */
+  @media (max-width: 880px) {
+    .site-nav, .site-header__cta { display: none; }
+    .nav-toggle { display: inline-flex; align-items: center; }
+    .site-header__inner { min-height: 70px; }
+    .mobile-nav { /* toggled via [data-open] */ }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('[data-header]') as HTMLElement | null;
+  const toggle = document.querySelector('[data-nav-toggle]') as HTMLButtonElement | null;
+  const drawer = document.querySelector('[data-mobile-nav]') as HTMLElement | null;
+
+  // Sticky header hairline on scroll
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 8) header.setAttribute('data-scrolled', '');
+    else header.removeAttribute('data-scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile drawer
+  const setOpen = (open: boolean) => {
+    if (!toggle || !drawer) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open) {
+      drawer.hidden = false;
+      drawer.setAttribute('data-open', '');
+    } else {
+      drawer.removeAttribute('data-open');
+      drawer.hidden = true;
+    }
+  };
+  toggle?.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  // Close on resize up to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 880) setOpen(false);
+  });
+</script>

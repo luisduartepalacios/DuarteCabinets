@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { services } from '../data/site';
+
+const steps = [
+  { title: 'Discovery', body: 'We talk through your space, needs, timeline, and budget — and see if we’re the right fit.' },
+  { title: 'Design & Render', body: 'Floor plans, material palettes, and photoreal 3D renderings so you see it before we build it.' },
+  { title: 'Fabrication', body: 'Your cabinetry is built in our workshop with signature carpentry and quality materials.' },
+  { title: 'Installation', body: 'We install and finish on site, leaving you with a space that’s ready to live in.' },
+];
+---
+
+<BaseLayout
+  title="Services"
+  description="Full-service interior design, remote E-Design, and design consultation from Duarte Cabinets & Design — custom cabinetry from concept to installation."
+>
+  <!-- Header -->
+  <section class="section--tight page-head">
+    <div class="container">
+      <p class="eyebrow">Services</p>
+      <h1 class="page-head__title display">Ways to work together</h1>
+      <p class="page-head__lead lead">
+        Whether you want a hands-on partner from concept to install or expert direction to do
+        it yourself, there’s a way to bring the Duarte aesthetic to your space.
+      </p>
+    </div>
+  </section>
+
+  <!-- Service blocks -->
+  <section class="section--tight services-list">
+    <div class="container">
+      {services.map((s, i) => (
+        <article class="service reveal" id={s.key}>
+          <div class="service__index">
+            <span class="service__num">0{i + 1}</span>
+          </div>
+          <div class="service__main">
+            <h2 class="service__name">{s.name}</h2>
+            <p class="service__summary lead">{s.summary}</p>
+            <p class="service__desc">{s.description}</p>
+          </div>
+          <ul role="list" class="service__includes">
+            <li class="service__includes-head">What’s included</li>
+            {s.includes.map((item) => (
+              <li class="service__include">
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6l4.5 4.5L15 1" stroke="currentColor" stroke-width="1.5"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section on-dark process">
+    <div class="container">
+      <div class="process__head reveal">
+        <p class="eyebrow">The Process</p>
+        <h2>From first sketch to final install.</h2>
+      </div>
+      <ol role="list" class="process__grid">
+        {steps.map((step, i) => (
+          <li class="process__step reveal">
+            <span class="process__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section--tight services-cta">
+    <div class="container container--narrow services-cta__inner reveal">
+      <h2 class="display">Not sure which is right for you?</h2>
+      <p class="lead">Tell us about your project and we’ll point you to the best path forward.</p>
+      <a href="/contact" class="btn btn--primary">Get in touch</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { padding-top: clamp(2.5rem, 2rem + 3vw, 5rem); }
+  .page-head__title { margin: 0.75rem 0 1.25rem; }
+  .page-head__lead { max-width: 52ch; color: var(--text-muted); }
+
+  .service {
+    display: grid;
+    grid-template-columns: 80px 1.5fr 1fr;
+    gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+    border-top: 1px solid var(--hairline);
+    align-items: start;
+  }
+  .service:last-child { border-bottom: 1px solid var(--hairline); }
+  .service__num { font-family: var(--font-display); font-size: 2rem; color: var(--color-rust); }
+  .service__name { font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem); margin-bottom: 1rem; }
+  .service__summary { color: var(--color-forest); margin-bottom: 1rem; }
+  .service__desc { color: var(--text-muted); }
+  .service__includes { display: flex; flex-direction: column; gap: 0.85rem; padding-top: 0.5rem; }
+  .service__includes-head {
+    font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 0.4rem;
+  }
+  .service__include {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    font-size: 0.98rem; color: var(--color-forest);
+  }
+  .service__include svg { color: var(--color-rust); margin-top: 0.4em; flex: none; }
+
+  .process__head { margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
+  .process__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.5rem, 1rem + 2vw, 2.5rem); margin: 0; padding: 0; }
+  .process__step {
+    display: flex; flex-direction: column; gap: 0.7rem;
+    padding-top: 1.5rem; border-top: 1px solid var(--hairline-light);
+  }
+  .process__num { font-family: var(--font-display); font-size: 1.6rem; color: var(--color-sand); }
+  .process__step h3 { color: var(--color-cream); }
+  .process__step p { color: rgba(243,237,225,0.7); font-size: 0.95rem; }
+
+  .services-cta__inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+
+  @media (max-width: 880px) {
+    .service { grid-template-columns: 1fr; gap: 1.25rem; }
+    .service__index { display: none; }
+    .process__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .process__grid { grid-template-columns: 1fr; }
+  }
+</style>

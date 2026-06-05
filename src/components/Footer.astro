@@ -1,0 +1,106 @@
+---
+import Logo from './Logo.astro';
+import { site, nav } from '../data/site';
+const year = 2026;
+---
+
+<footer class="site-footer on-dark">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <Logo variant="stacked" markColor="var(--color-sand)" />
+      <p class="site-footer__tag">{site.taglineEs}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <h2 class="site-footer__heading">Explore</h2>
+      <ul role="list">
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="site-footer__contact">
+      <h2 class="site-footer__heading">Studio</h2>
+      <ul role="list">
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></li>
+        <li><a href={site.instagramUrl} target="_blank" rel="noopener">@{site.instagram}</a></li>
+        <li class="site-footer__location">{site.locationLine}</li>
+      </ul>
+    </div>
+
+    <div class="site-footer__cta-block">
+      <p class="display">Let’s design something lasting.</p>
+      <a href="/contact" class="btn btn--outline">Start a project</a>
+    </div>
+  </div>
+
+  <div class="container site-footer__base">
+    <p>© {year} {site.name}. All rights reserved.</p>
+    <p>Designed &amp; built with care.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-forest-deep);
+    color: var(--color-cream);
+    padding-top: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  }
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr 1.4fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+  .site-footer__tag {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--color-sand);
+    max-width: 22ch;
+  }
+  .site-footer__heading {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-sand);
+    margin-bottom: 1.25rem;
+  }
+  .site-footer__nav ul,
+  .site-footer__contact ul { display: flex; flex-direction: column; gap: 0.7rem; }
+  .site-footer__nav a,
+  .site-footer__contact a {
+    color: rgba(243, 237, 225, 0.82);
+    font-size: 0.95rem;
+    transition: color 0.3s var(--ease);
+  }
+  .site-footer__nav a:hover,
+  .site-footer__contact a:hover { color: var(--color-cream); }
+  .site-footer__location { color: rgba(243, 237, 225, 0.5); font-size: 0.85rem; line-height: 1.5; }
+
+  .site-footer__cta-block .display { font-size: 1.6rem; color: var(--color-cream); margin-bottom: 1.5rem; max-width: 14ch; }
+
+  .site-footer__base {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--hairline-light);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: rgba(243, 237, 225, 0.55);
+  }
+
+  @media (max-width: 880px) {
+    .site-footer__inner { grid-template-columns: 1fr 1fr; gap: 2.5rem 2rem; }
+    .site-footer__brand { grid-column: 1 / -1; }
+    .site-footer__cta-block { grid-column: 1 / -1; }
+  }
+  @media (max-width: 520px) {
+    .site-footer__inner { grid-template-columns: 1fr; }
+    .site-footer__base { flex-direction: column; text-align: left; gap: 0.4rem; }
+  }
+</style>

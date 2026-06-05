@@ -1,0 +1,157 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, aboutCopy } from '../data/site';
+import { projects } from '../data/projects';
+
+const portrait = projects.find((p) => p.slug === 'the-dressing-room')?.images[0];
+const wide = projects.find((p) => p.slug === 'cafe-eph')?.images[0];
+---
+
+<BaseLayout
+  title="About"
+  description="Meet Itzel Duarte and the studio behind Duarte Cabinets & Design — a binational interior design and custom cabinetry practice serving Mexico and the United States."
+>
+  <!-- Intro -->
+  <section class="section--tight about-intro">
+    <div class="container container--narrow about-intro__inner">
+      <p class="eyebrow">About the Studio</p>
+      <h1 class="about-intro__title display">{aboutCopy.intro}</h1>
+    </div>
+  </section>
+
+  <!-- Lead image -->
+  {wide && (
+    <section class="about-feature">
+      <Image
+        src={wide}
+        alt="Interior designed and built by Duarte Cabinets & Design"
+        widths={[768, 1280, 1920, 2400]}
+        sizes="100vw"
+        loading="lazy"
+        class="about-feature__img"
+      />
+    </section>
+  )}
+
+  <!-- Story + portrait -->
+  <section class="section story">
+    <div class="container story__grid">
+      <div class="story__text reveal">
+        <p class="eyebrow">Our Story</p>
+        <h2>Crafted for the way you live.</h2>
+        <p>
+          Duarte Cabinets &amp; Design was founded by {site.designer}, {site.designerRole.toLowerCase()},
+          on a simple conviction: that thoughtful design and honest carpentry belong together.
+          Too often, beautiful interiors are undone by furniture that doesn’t fit, or fine
+          cabinetry that was never really designed.
+        </p>
+        <p>
+          As an integral designer, Itzel brings interiors, architecture, and custom millwork
+          under one roof — so the vision that begins on paper is the same one installed in your
+          home. Every project is measured, drawn, rendered, and built by a single accountable team.
+        </p>
+        <p>
+          Based in Tijuana and working across the border into Southern California, the studio is
+          building toward a binational practice — bringing made-to-measure design to clients on
+          both sides of the line.
+        </p>
+      </div>
+      {portrait && (
+        <div class="story__media reveal">
+          <Image
+            src={portrait}
+            alt="Detail of a custom dressing room by Duarte Cabinets & Design"
+            widths={[480, 760, 1100]}
+            sizes="(max-width: 880px) 100vw, 42vw"
+            loading="lazy"
+            class="story__img"
+          />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="section on-dark mv">
+    <div class="container mv__grid">
+      <div class="mv__cell reveal">
+        <p class="eyebrow">Mission</p>
+        <p class="mv__text display">{aboutCopy.mission}</p>
+      </div>
+      <div class="mv__cell reveal">
+        <p class="eyebrow">Vision</p>
+        <p class="mv__text display">{aboutCopy.vision}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section values">
+    <div class="container">
+      <div class="values__head reveal">
+        <p class="eyebrow">What guides us</p>
+        <h2>Principles, not trends.</h2>
+      </div>
+      <div class="values__grid">
+        {aboutCopy.values.map((v, i) => (
+          <div class="value reveal">
+            <span class="value__num">0{i + 1}</span>
+            <h3>{v.title}</h3>
+            <p>{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section--tight about-cta">
+    <div class="container container--narrow about-cta__inner reveal">
+      <h2 class="display">Let’s build your vision.</h2>
+      <a href="/contact" class="btn btn--primary">Start a project</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-intro { padding-top: clamp(2.5rem, 2rem + 3vw, 5rem); }
+  .about-intro__title {
+    font-size: clamp(1.7rem, 1.2rem + 2.4vw, 2.9rem);
+    line-height: 1.18; margin-top: 1rem;
+  }
+  .about-feature { margin-block: clamp(2rem, 1rem + 3vw, 4rem); }
+  .about-feature__img { width: 100%; aspect-ratio: 21/9; object-fit: cover; }
+
+  .story__grid {
+    display: grid; grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(2rem, 1rem + 5vw, 5rem); align-items: start;
+  }
+  .story__text { display: flex; flex-direction: column; gap: 1.2rem; }
+  .story__text h2 { max-width: 16ch; margin-bottom: 0.5rem; }
+  .story__media { overflow: hidden; border-radius: var(--radius); position: sticky; top: 110px; }
+  .story__img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+
+  .mv__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 1.5rem + 4vw, 5rem); }
+  .mv__text {
+    font-size: clamp(1.3rem, 1rem + 1.4vw, 1.9rem); line-height: 1.32;
+    color: var(--color-cream); margin-top: 1.25rem; font-weight: 500;
+  }
+
+  .values__head { margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
+  .values__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(2rem, 1rem + 3vw, 3.5rem); }
+  .value { display: flex; flex-direction: column; gap: 0.85rem; padding-top: 1.5rem; border-top: 2px solid var(--color-rust); }
+  .value__num { font-family: var(--font-display); font-size: 1.2rem; color: var(--color-rust); }
+  .value p { color: var(--text-muted); }
+
+  .about-cta__inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+
+  @media (max-width: 880px) {
+    .story__grid { grid-template-columns: 1fr; }
+    .story__media { position: static; order: -1; }
+    .story__img { aspect-ratio: 16/10; }
+    .mv__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .values__grid { grid-template-columns: 1fr; }
+    .about-feature__img { aspect-ratio: 16/10; }
+  }
+</style>

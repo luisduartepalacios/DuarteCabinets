@@ -1,0 +1,275 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects, getProject } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const project = getProject(slug!)!;
+
+const index = projects.findIndex((p) => p.slug === slug);
+const prev = projects[(index - 1 + projects.length) % projects.length];
+const next = projects[(index + 1) % projects.length];
+
+const [cover, ...gallery] = project.images;
+---
+
+<BaseLayout title={project.title} description={project.intro}>
+  <!-- Hero cover -->
+  <section class="pd-hero">
+    <div class="pd-hero__media">
+      <Image
+        src={cover}
+        alt={`${project.title} — ${project.category} by Duarte Cabinets & Design`}
+        widths={[768, 1280, 1920, 2400]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="pd-hero__img"
+      />
+      <div class="pd-hero__scrim"></div>
+    </div>
+    <div class="pd-hero__content container">
+      <a href="/projects" class="pd-hero__back link-arrow">
+        <svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M22 5H2M6 1L2 5l4 4" stroke="currentColor" stroke-width="1.2"/></svg>
+        All projects
+      </a>
+      <div class="pd-hero__meta">
+        <span>{project.type}</span><span aria-hidden="true">·</span>
+        <span>{project.category}</span><span aria-hidden="true">·</span>
+        <span>{project.year}</span>
+      </div>
+      <h1 class="pd-hero__title display">{project.title}</h1>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="section--tight pd-overview">
+    <div class="container pd-overview__grid">
+      <div class="pd-overview__intro reveal">
+        <p class="lead">{project.intro}</p>
+        {project.body.map((para) => <p>{para}</p>)}
+      </div>
+      <aside class="pd-overview__details reveal">
+        <dl>
+          {project.details.map((d) => (
+            <div class="pd-detail">
+              <dt>{d.label}</dt>
+              <dd>{d.value}</dd>
+            </div>
+          ))}
+          <div class="pd-detail">
+            <dt>Location</dt>
+            <dd>{project.location}</dd>
+          </div>
+        </dl>
+        <a href="/contact" class="btn btn--primary pd-overview__cta">Design something like this</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section--tight pd-gallery">
+    <div class="container">
+      <div class="pd-gallery__grid">
+        {gallery.map((img, i) => (
+          <button
+            class:list={['pd-gallery__item reveal', { 'pd-gallery__item--wide': i % 3 === 0 }]}
+            data-lightbox={i + 1}
+            aria-label={`View image ${i + 2} of ${project.images.length}`}
+          >
+            <Image
+              src={img}
+              alt={`${project.title} — view ${i + 2}`}
+              widths={[480, 760, 1100, 1500]}
+              sizes="(max-width: 760px) 100vw, 50vw"
+              loading="lazy"
+              class="pd-gallery__img"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Prev / Next -->
+  <section class="pd-nav on-dark">
+    <a href={`/projects/${prev.slug}`} class="pd-nav__link pd-nav__link--prev">
+      <span class="pd-nav__dir">← Previous</span>
+      <span class="pd-nav__name display">{prev.title}</span>
+    </a>
+    <a href={`/projects/${next.slug}`} class="pd-nav__link pd-nav__link--next">
+      <span class="pd-nav__dir">Next →</span>
+      <span class="pd-nav__name display">{next.title}</span>
+    </a>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" data-lightbox-modal hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" data-lb-close aria-label="Close viewer">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" data-lb-prev aria-label="Previous image">‹</button>
+    <img class="lightbox__img" data-lb-img alt="" />
+    <button class="lightbox__nav lightbox__nav--next" data-lb-next aria-label="Next image">›</button>
+    <p class="lightbox__counter" data-lb-counter></p>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ---------- HERO ---------- */
+  .pd-hero {
+    position: relative;
+    min-height: min(76vh, 720px);
+    display: flex;
+    align-items: flex-end;
+    color: var(--color-cream);
+    overflow: hidden;
+  }
+  .pd-hero__media { position: absolute; inset: 0; z-index: -1; }
+  .pd-hero__img { width: 100%; height: 100%; object-fit: cover; }
+  .pd-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(22,33,30,0.8), rgba(22,33,30,0.1) 60%); }
+  .pd-hero__content { padding-bottom: clamp(2.5rem, 1.5rem + 4vw, 5rem); }
+  .pd-hero__back { color: var(--color-sand); margin-bottom: 1.5rem; }
+  .pd-hero__meta {
+    display: flex; gap: 0.7em; align-items: center;
+    font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--color-sand);
+  }
+  .pd-hero__title { font-size: var(--fs-hero); color: var(--color-cream); margin-top: 0.75rem; }
+
+  /* ---------- OVERVIEW ---------- */
+  .pd-overview__grid {
+    display: grid;
+    grid-template-columns: 1.6fr 0.9fr;
+    gap: clamp(2rem, 1rem + 5vw, 5rem);
+    padding-top: clamp(1rem, 3vw, 3rem);
+  }
+  .pd-overview__intro { display: flex; flex-direction: column; gap: 1.25rem; }
+  .pd-overview__intro p { color: var(--text-body); }
+  .pd-overview__intro .lead { color: var(--color-forest); }
+  .pd-overview__details dl { border-top: 1px solid var(--hairline); }
+  .pd-detail {
+    display: flex; justify-content: space-between; gap: 1rem;
+    padding: 1rem 0; border-bottom: 1px solid var(--hairline);
+  }
+  .pd-detail dt { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .pd-detail dd { font-size: 0.95rem; text-align: right; color: var(--color-forest); }
+  .pd-overview__cta { margin-top: 2rem; width: 100%; justify-content: center; }
+
+  /* ---------- GALLERY ---------- */
+  .pd-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(0.75rem, 0.4rem + 1.5vw, 1.5rem);
+  }
+  .pd-gallery__item {
+    padding: 0; border: 0; background: var(--color-cream-soft);
+    overflow: hidden; border-radius: var(--radius);
+    aspect-ratio: 4/3; cursor: zoom-in;
+  }
+  .pd-gallery__item--wide { grid-column: span 2; aspect-ratio: 16/8; }
+  .pd-gallery__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease); }
+  .pd-gallery__item:hover .pd-gallery__img { transform: scale(1.04); }
+
+  /* ---------- PREV/NEXT ---------- */
+  .pd-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .pd-nav__link {
+    padding: clamp(2.5rem, 2rem + 3vw, 4.5rem) var(--gutter);
+    display: flex; flex-direction: column; gap: 0.6rem;
+    background: var(--color-forest);
+    transition: background 0.4s var(--ease);
+  }
+  .pd-nav__link:hover { background: var(--color-forest-deep); }
+  .pd-nav__link--next { text-align: right; align-items: flex-end; border-left: 1px solid var(--hairline-light); }
+  .pd-nav__dir { font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-sand); }
+  .pd-nav__name { font-size: clamp(1.4rem, 1.1rem + 1.5vw, 2.25rem); color: var(--color-cream); }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(15, 22, 20, 0.96);
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(1rem, 4vw, 4rem);
+  }
+  .lightbox[hidden] { display: none; }
+  .lightbox__img { max-width: 92vw; max-height: 86vh; width: auto; height: auto; border-radius: var(--radius); }
+  .lightbox__close {
+    position: absolute; top: 1.25rem; right: 1.5rem;
+    background: none; border: 0; color: var(--color-cream);
+    font-size: 2.5rem; line-height: 1; width: 3rem; height: 3rem;
+  }
+  .lightbox__nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: none; border: 0; color: var(--color-cream);
+    font-size: 3rem; line-height: 1; padding: 1rem;
+    opacity: 0.7; transition: opacity 0.3s ease;
+  }
+  .lightbox__nav:hover { opacity: 1; }
+  .lightbox__nav--prev { left: 0.5rem; }
+  .lightbox__nav--next { right: 0.5rem; }
+  .lightbox__counter {
+    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    color: var(--color-sand); font-size: 0.8rem; letter-spacing: 0.16em;
+  }
+
+  @media (max-width: 760px) {
+    .pd-overview__grid { grid-template-columns: 1fr; }
+    .pd-gallery__item--wide { grid-column: span 2; aspect-ratio: 16/10; }
+    .pd-nav { grid-template-columns: 1fr; }
+    .pd-nav__link--next { text-align: left; align-items: flex-start; border-left: 0; border-top: 1px solid var(--hairline-light); }
+  }
+</style>
+
+<script>
+  // Lightbox built from the optimized gallery <img> sources already on the page.
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lightbox]'));
+  const modal = document.querySelector<HTMLElement>('[data-lightbox-modal]');
+  const lbImg = document.querySelector<HTMLImageElement>('[data-lb-img]');
+  const counter = document.querySelector<HTMLElement>('[data-lb-counter]');
+  const sources = triggers.map((t) => {
+    const img = t.querySelector('img');
+    // Prefer the largest candidate from srcset, fall back to src.
+    const srcset = img?.getAttribute('srcset') || '';
+    const last = srcset.split(',').map((s) => s.trim().split(' ')[0]).pop();
+    return last || img?.src || '';
+  });
+  let current = 0;
+
+  const render = () => {
+    if (!lbImg || !counter) return;
+    lbImg.src = sources[current];
+    counter.textContent = `${current + 1} / ${sources.length}`;
+  };
+  const open = (i: number) => {
+    if (!modal) return;
+    current = i;
+    render();
+    modal.hidden = false;
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    if (!modal) return;
+    modal.hidden = true;
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+  const step = (d: number) => { current = (current + d + sources.length) % sources.length; render(); };
+
+  triggers.forEach((t, i) => t.addEventListener('click', () => open(i)));
+  document.querySelector('[data-lb-close]')?.addEventListener('click', close);
+  document.querySelector('[data-lb-prev]')?.addEventListener('click', () => step(-1));
+  document.querySelector('[data-lb-next]')?.addEventListener('click', () => step(1));
+  modal?.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  window.addEventListener('keydown', (e) => {
+    if (modal?.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
+  });
+</script>
