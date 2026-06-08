@@ -156,6 +156,48 @@ const meta: Omit<Project, 'images'>[] = [
     ],
     featured: false,
   },
+  {
+    slug: 'epiphany-cafe',
+    title: 'Epiphany Café',
+    type: 'Commercial',
+    category: 'Hospitality',
+    location: 'Tijuana, MX',
+    year: '2025',
+    blurb: 'A warm, daylit coffee house in timber, cane, and terracotta tile.',
+    intro:
+      'A full-service coffee house designed end to end, with warm timber millwork, arched alcoves, cane detailing, and a hand-laid terracotta floor.',
+    body: [
+      'Epiphany Café was designed as a neighborhood coffee house with a relaxed, sunlit feel. Warm timber millwork wraps the room, from the service counter to the open display shelving, while arched alcoves and cane panels add texture and rhythm.',
+      'A hand-laid terracotta floor grounds the space in warmth, and a central skylight keeps it bright through the day. Custom banquettes and a mix of communal and intimate seating make it as comfortable for a quick espresso as for a long afternoon.',
+    ],
+    details: [
+      { label: 'Scope', value: 'Full commercial fit-out' },
+      { label: 'Program', value: 'Café & coffee counter' },
+      { label: 'Materials', value: 'Timber, cane, terracotta tile' },
+    ],
+    featured: false,
+  },
+  {
+    slug: 'epiphany-coffee-bar',
+    title: 'Epiphany Coffee Bar',
+    type: 'Commercial',
+    category: 'Hospitality',
+    location: 'Tijuana, MX',
+    year: '2025',
+    blurb: 'A compact espresso-bar format in timber and white tile, with an order window.',
+    intro:
+      'A compact espresso-bar concept for the Epiphany brand, a tightly planned counter with display shelving and a tiled “order here” service window.',
+    body: [
+      'The Epiphany Coffee Bar distills the brand into a compact, high-efficiency format. Every element of the counter was planned around the barista’s workflow, with display shelving for cups and retail and a clear line to the espresso machine.',
+      'A tiled “order here” window and a warm timber storefront make the bar approachable from the street, while a few outdoor seats invite people to linger. It is a small footprint designed to feel generous.',
+    ],
+    details: [
+      { label: 'Scope', value: 'Commercial fit-out' },
+      { label: 'Program', value: 'Espresso bar & counter' },
+      { label: 'Materials', value: 'Timber, white tile, brass' },
+    ],
+    featured: false,
+  },
 ];
 
 export const projects: Project[] = meta.map((p) => ({
