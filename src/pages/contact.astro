@@ -168,8 +168,18 @@ const formAction = '/api/contact';
 </style>
 
 <script>
-  // Progressive enhancement: AJAX submit to Formspree with inline success/error,
-  // so the visitor stays on the page. Falls back to a normal POST if JS is off.
+  // Pre-fill the "Tell us about your project" box when the visitor arrives from a
+  // project page's "Design something like this" button (/contact?project=...).
+  // It's just a starter template — they can edit or clear it.
+  const messageField = document.getElementById('message') as HTMLTextAreaElement | null;
+  const projectParam = new URLSearchParams(window.location.search).get('project');
+  if (messageField && projectParam && !messageField.value.trim()) {
+    messageField.value =
+      `I'm reaching out about your ${projectParam} project. I love it and would like to design something similar for my space. A little about what I have in mind:\n\n`;
+  }
+
+  // Progressive enhancement: AJAX submit to the /api/contact function with inline
+  // success/error, so the visitor stays on the page.
   const form = document.querySelector<HTMLFormElement>('[data-form]');
   const status = document.querySelector<HTMLElement>('[data-status]');
   const submit = document.querySelector<HTMLButtonElement>('[data-submit]');

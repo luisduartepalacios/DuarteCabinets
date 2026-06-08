@@ -66,7 +66,7 @@ const [cover, ...gallery] = project.images;
             <dd>{project.location}</dd>
           </div>
         </dl>
-        <a href="/contact" class="btn btn--primary pd-overview__cta">Design something like this</a>
+        <a href={`/contact?project=${encodeURIComponent(project.title)}`} class="btn btn--primary pd-overview__cta">Design something like this</a>
       </aside>
     </div>
   </section>
