@@ -52,27 +52,6 @@ const meta: Omit<Project, 'images'>[] = [
     featured: true,
   },
   {
-    slug: 'cafe-eph',
-    title: 'Eph Coffee House',
-    type: 'Commercial',
-    category: 'Hospitality',
-    location: 'Tijuana, MX',
-    year: '2024',
-    blurb: 'A neighborhood café in warm wood, arched niches, and a daylit skylight.',
-    intro:
-      'A neighborhood coffee house designed end to end, warm wood joinery, arched seating niches, and a central skylight that tracks the day.',
-    body: [
-      'For Eph we designed a café that earns its regulars. A long timber service counter leads the eye through the room, while arched banquette niches carve out intimate corners within an open plan.',
-      'A central skylight floods the space with changing daylight, and custom display millwork keeps merchandise and pastries beautifully in view. Every fixture, from the counter to the shelving, was drawn and built for this room.',
-    ],
-    details: [
-      { label: 'Scope', value: 'Full commercial fit-out' },
-      { label: 'Program', value: 'Café & retail counter' },
-      { label: 'Materials', value: 'Warm timber, tile, terrazzo' },
-    ],
-    featured: true,
-  },
-  {
     slug: 'stone-walnut-kitchen',
     title: 'Stone & Walnut Kitchen',
     type: 'Residential',
@@ -175,7 +154,7 @@ const meta: Omit<Project, 'images'>[] = [
       { label: 'Program', value: 'Café & coffee counter' },
       { label: 'Materials', value: 'Timber, cane, terracotta tile' },
     ],
-    featured: false,
+    featured: true,
   },
   {
     slug: 'epiphany-coffee-bar',
